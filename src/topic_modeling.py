@@ -295,7 +295,7 @@ def optimize_num_topics(candidate_num_topics: List[int], corpus: List[List[str]]
     plt.xlabel("num_topics") 
     plt.ylabel("Cv Coherence")
 
-    for x, y in enumerate([round(c, 2) for c in coherence_cv]):
+    for x, y in enumerate([round(c, 4) for c in coherence_cv]):
         plt.text(xlocs[x] - width/2, y, str(y))
     plt.xticks([num + width/2 for num in candidate_num_topics],
                candidate_num_topics)
@@ -327,6 +327,7 @@ def optimize_no_above(candidate_no_above: List[int], corpus: List[List[str]],
     coherence_cv = []
     perplexity = []
 
+    target = str(Path)
     if not os.path.exists(target):
         os.makedirs(target)
 
@@ -398,7 +399,7 @@ def optimize_no_above(candidate_no_above: List[int], corpus: List[List[str]],
     plt.xlabel("no_above") 
     plt.ylabel("Cv Coherence")
 
-    for x, y in enumerate([round(c, 2) for c in coherence_cv]):
+    for x, y in enumerate([round(c, 4) for c in coherence_cv]):
         plt.text(xlocs[x] - width/2, y, str(y))
     plt.xticks([num + width/2 for num in candidate_no_above],
                candidate_no_above)
