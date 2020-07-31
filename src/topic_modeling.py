@@ -143,7 +143,7 @@ class TopicModeler(object):
     
     
     @classmethod
-    def print_topics(cls, model, num_words: int = 10) -> None:
+    def print_topics(cls, model, num_words: int = 10, top_articles: Optional[List[List[Tuple[str, float]]]] = None) -> None:
         """Print all of the latent topics and top tokens associated with each topic.
         
         Args:
@@ -156,13 +156,22 @@ class TopicModeler(object):
         topics = TopicModeler.get_topics(model, num_words=num_words)
         topics_dict = []
 
-        for t in topics:
+        for topic_id, t in enumerate(topics):
             topics = t[1].replace('"', "").replace('+', "\n").split('\n')
             topics = [topic.strip().split('*') for topic in topics]
             keyphrases = ", ".join([key for _, key in topics])
-            topics_dict.append([t[0]+1, keyphrases])
-
-        df = pd.DataFrame(topics_dict, columns=["Topic #", "Top keywords"])
+            if (top_articles != None):
+                topics_dict.append([t[0]+1, keyphrases, ", ".join(
+                    ["[{} - {:.2f}]".format(doc_id, prob*100) for doc_id, prob in top_articles[topic_id]])])
+            else:
+                topics_dict.append([t[0]+1, keyphrases])
+        columns = []
+        if (top_articles != None):
+            columns = ["Topic #", "Top keywords", "Most related articles"]
+        else:
+            columns = ["Topic #", "Top keywords"]
+                
+        df = pd.DataFrame(topics_dict, columns=columns)
         df = df.style.set_properties(**{"text-align": "left", "colheader-align": "left"})
         display(df)
         

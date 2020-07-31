@@ -23,18 +23,27 @@ class ScholarlyPreprocessor(object):
     """
     
     russian_stopwords = stopwords.words("russian") + stopwords.words("english") + \
-        stopwordsiso + ["что-то", "который", "это", "также"]
+        stopwordsiso + ["что-то", "который", "это", "также", "диалог", "что-ловек", "чем-ловек", "как-то",
+                       "поскольку", "никак", "текст", "явление", "являться", "автор", "вообще-то", "получать",
+                       "сравнивать", "корпус", "исследование", "словарь", "конструкция", "таблица", "предложение",
+                       "эксперимент", "причина", "отношение", "данные", "объект", "анализ", "рисяча", "во-вторых",
+                       "во-первых", "в-третьих", "заключение", "выражение", "высказывание", "материал", 
+                       "использовать", "чей", "например", "тема", "форма", "прилагательное", "глагол", "плюс",
+                       "какой-то", "чем-л", "что-л", "субъект", "употребление", "приставка", "смысл", "ситуация",
+                       "частица", "контекст", "речь", "речевой", "термин", "шаблон", "существительное", "жест",
+                       "создавать", "перевод", "группа", "участник", "система", "наречие", "лексема",
+                       "модель", "союз", "существовать", "местоимение"]
     is_sentence_delimiter = re.compile(r'^[\.!?\n]$')
     
     # Regular expressions for filtering out from text
-    references_section = re.compile(r'Литература$|Список литературы$', re.MULTILINE)
-    parentheses_or_brackets = re.compile(r'\(.*?\)|\[.*?\]', re.DOTALL)
+    references_section = re.compile(r'Литература.*$|Список литературы.*$', flags=re.IGNORECASE | re.MULTILINE)
+    parentheses_or_brackets = re.compile(r'\(.*?\)|\[.*?\]', flags=re.DOTALL)
     word_at_pagebreak = re.compile(r'([А-яЁё\w]+-[\n$])|\n([а-яёa-z]+)')
     
     # Regular expressions for filtering tokens to keep
     length_threshold = re.compile(r'^.{3,100}$')
     has_alphabetical = re.compile(r'^[А-яЁё0-9]+(?:-[А-яЁё0-9]+)*$')
-    not_number_token = re.compile(r'^(?!x+$).*$')
+    not_number_token = re.compile(r'^(?![x0-9]+$).*$')
     has_alphabetical_or_is_sentence_delimiter = re.compile(r'{}|{}'.format(
         has_alphabetical.pattern, is_sentence_delimiter.pattern))
 

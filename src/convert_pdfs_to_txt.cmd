@@ -16,4 +16,3 @@ echo Error: Missing or extraneous arguments
 echo Usage: %0 source_dir target_dir
 
 :end
-PAUSE

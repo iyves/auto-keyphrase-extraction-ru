@@ -20,7 +20,7 @@ def to_file_safe_string(value: str, max_strlen: int = 200) -> str:
     Returns:
         A string that conforms to the django standards of a valid URL slug. For example:
         
-        "управление-лексиконом-в-онтологической-семантике-p-636.txt"
+        "управление-лексиконом-в-онтологической-семантике-p-636"
         
     """
     slug = slugify(value, allow_unicode=True)
