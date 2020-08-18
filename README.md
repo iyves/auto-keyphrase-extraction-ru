@@ -20,7 +20,10 @@ keyphrases used by the research community. The conclusion points to needed impro
 extraction, morphological normalization, and candidate keyphrase ranking.
 
 __Keywords:__ Automatic Keyphrase Extraction, Topic Modeling, LDA, pyLDAvis, Scholarly Papers, Russian.
+
+[Honors Symposium Presentation](https://www.youtube.com/watch?v=IL2eTdDz4-I)
 <br/><br/>
+
 
 ### Running the code 
 In the `src/` directory, there are three [Jupyter Notebooks](https://jupyter.org/), `corpus_creation.ipynb`, 
